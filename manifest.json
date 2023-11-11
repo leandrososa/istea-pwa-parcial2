@@ -1,0 +1,37 @@
+{
+  "short_name": "Taskie",
+  "name": "Taskie - Gestor de tareas con voz",
+  "icons": [
+    {
+      "src": "/img/taskie-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/taskie-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/taskie-icon-144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/taskie-icon-64.png",
+      "type": "image/png",
+      "sizes": "64x64",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "rgb(20, 19, 22)",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "rgb(79, 55, 138)",
+  "description": "Gestiona tus tareas con estado y funcionalidad de voz"
+}
