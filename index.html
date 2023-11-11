@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="rgb(79, 55, 138)" />
+    <title>Taskie</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/beercss@3.4.2/dist/cdn/beer.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      defer
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/beercss@3.4.2/dist/cdn/beer.min.js"
+    ></script>
 
+    <script
+      defer
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.0/dist/cdn/material-dynamic-colors.min.js"
+    ></script>
+    <script defer src="index.js"></script>
+  </head>
+  <body class="dark">
+    <!-- nav -->
+    <nav class="responsive top primary-container">
+      <button data-ui="#drawer" class="s m circle transparent">
+        <i>menu</i>
+      </button>
+      <h5 class="max">Taskie</h5>
+    </nav>
+    <!-- desktop nav -->
+    <nav class="l left">pepe</nav>
+    <!-- navigation drawer -->
+    <dialog class="left" id="drawer">
+      <header class="fixed">
+        <nav>
+          <button data-ui="#drawer" class="transparent circle large">
+            <i>close</i>
+          </button>
+          <h5 class="max">Taskie</h5>
+        </nav>
+      </header>
+      <a data-ui="#add-dialog" class="row round">
+        <i>add</i>
+        <span>Agregar tarea</span>
+        <div class="max"></div>
+      </a>
+      <a data-ui="#drawer" onclick="ui('#edit-snackbar')" class="row round">
+        <i>edit</i>
+        <span>Editar tarea</span>
+        <div class="max"></div>
+      </a>
+      <div class="small-divider"></div>
+      <a data-ui="#config-dialog" class="row round">
+        <i>settings</i>
+        <span>Configuraciones</span>
+      </a>
+    </dialog>
+    <!-- main -->
+    <main
+      id="content"
+      class="responsive middle-align center-align"
+      style="padding: 96px 16px 16px 16px"
+    >
+      <progress class="circle">...</progress>
+    </main>
+    <!-- add dialog -->
+    <dialog id="add-dialog" class="max">
+      <header class="fixed">
+        <nav>
+          <h5 class="max">Agregar tarea</h5>
+        </nav>
+      </header>
+      <form id="form" method="post">
+        <div class="field label border">
+          <input
+            id="task-title"
+            type="text"
+            name="titulo"
+            required
+            minlength="3"
+          />
+          <label>Título de la tarea</label>
+        </div>
+        <div class="field textarea label border">
+          <textarea
+            id="task-desc"
+            name="descripcion"
+            required
+            minlength="3"
+          ></textarea>
+          <label>Descripción de la tarea</label>
+        </div>
+        <div class="field label suffix border">
+          <select name="estado" id="task-status">
+            <option value="pendiente">Pendiente</option>
+            <option value="completada">Completada</option>
+          </select>
+          <label>Estado de la tarea</label>
+          <i>arrow_drop_down</i>
+        </div>
+        <footer class="fixed">
+          <nav class="right-align">
+            <button type="button" data-ui="#add-dialog" class="border">
+              Cancelar
+            </button>
+            <button>Agregar</button>
+          </nav>
+        </footer>
+      </form>
+    </dialog>
+    <!-- config dialog -->
+    <dialog id="config-dialog" class="max">
+      <header class="fixed">
+        <nav>
+          <h5 class="max">Configuración</h5>
+          <button data-ui="#config-dialog" class="transparent circle large">
+            <i>close</i>
+          </button>
+        </nav>
+      </header>
+      <form id="form" method="post">
+        <div class="field label suffix border">
+          <select name="idioma" id="voice-language">
+            <!-- <option value="pendiente">Pendiente</option>
+            <option value="completada">Completada</option> -->
+          </select>
+          <label>Seleccionar idioma y voz</label>
+          <i>arrow_drop_down</i>
+        </div>
+        <nav>
+          <span class="helper">Velocidad de la voz</span>
+          <label class="slider">
+            <input
+              id="voice-rate"
+              type="range"
+              min="0.5"
+              max="2"
+              value="1"
+              step="0.1"
+            />
+            <span></span>
+            <div class="tooltip"></div>
+          </label>
+          <i>speed</i>
+        </nav>
+      </form>
+    </dialog>
+    <!-- add fab -->
+    <button
+      id="add-fab"
+      data-ui="#add-dialog"
+      disabled
+      class="extend circle margin fixed bottom right"
+    >
+      <i>add</i>
+      <span>Agregar tarea</span>
+    </button>
+    <!-- edit snackbar -->
+    <div class="snackbar primary" id="edit-snackbar">
+      <i>info</i>
+      <span>Puede editar cada tarea desde el menu de opción de cada item.</span>
+    </div>
+  </body>
+</html>
