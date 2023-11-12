@@ -28,6 +28,9 @@ var speechSyntheObj = new SpeechSynthesisUtterance();
 speechSyntheObj.rate = speed;
 voiceRateSlider.value = speed;
 
+speechSyntheObj.text = ' ';
+window.speechSynthesis.speak(speechSyntheObj);
+
 // Functions
 
 const fetchTasks = async () => {
@@ -52,7 +55,6 @@ const setDarkMode = (bool) => {
 };
 
 const renderTasks = (tasks) => {
-  console.table(tasks);
   taskList.classList.remove(
     'middle-align',
     'center-align',
@@ -233,6 +235,8 @@ fetchTasks().then((tasks) => {
   }
 });
 
+// Event listeners
+
 const formAdd = document.getElementById('form');
 formAdd.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -276,7 +280,6 @@ formEdit.addEventListener('submit', async (event) => {
   }
   taskList.innerHTML =
     "<div class='center-align padding'><progress class='circle'></progress></div>";
-  debugger;
   if ('fechaconclusion' in task) {
     // hubo cambios
     try {
@@ -296,22 +299,22 @@ const synth = window.speechSynthesis;
 
 synth.addEventListener('voiceschanged', () => {
   voiceList = window.speechSynthesis.getVoices();
-  voiceList.forEach(
-    (voice) =>
-      (voiceSelect.innerHTML += `<option value="${
-        voice.voiceURI
-      }" data-lang="${voice.lang.replace('_', '-')}">${voice.name} - ${
-        voice.lang
-      }</option>`)
-  );
+
   if (myVoice) {
-    //speechSyntheObj.voice = voiceList.filter((voice) => voice === voice);
     speechSyntheObj.voice = voiceList.filter(
       (voice) => voice.voiceURI === myVoice
     )[0];
   } else {
-    speechSyntheObj.voice = speechSynthesis.getVoices()[0];
+    speechSyntheObj.voice = voiceList.filter((voice) => voice.default)[0];
   }
+  voiceList.forEach(
+    (voice) =>
+      (voiceSelect.innerHTML += `<option value="${voice.voiceURI}" ${
+        speechSyntheObj.voice.voiceURI == voice.voiceURI ? 'selected' : ''
+      } data-lang="${voice.lang.replace('_', '-')}">${voice.name} - ${
+        voice.lang
+      }</option>`)
+  );
   document.querySelectorAll('.play-button').forEach((element) => {
     element.removeAttribute('disabled');
     element.innerHTML = '<i>play_arrow</i>';

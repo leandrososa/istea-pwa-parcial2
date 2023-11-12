@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="rgb(79, 55, 138)" />
     <title>Taskie</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="icon"
+      href="img/favicon-32x32.png"
+      sizes="32x32"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="img/favicon-16x16.png"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
     <link rel="manifest" href="manifest.json" />
     <link
       href="https://cdn.jsdelivr.net/npm/beercss@3.4.2/dist/cdn/beer.min.css"
@@ -165,7 +179,9 @@
       </header>
       <form id="form" method="post" class="padding">
         <div class="field label suffix border">
-          <select name="idioma" id="voice-language"></select>
+          <select name="idioma" id="voice-language">
+            <option selected disabled value="none">Seleccione voz</option>
+          </select>
           <label>Seleccionar idioma y voz</label>
           <i>arrow_drop_down</i>
         </div>
