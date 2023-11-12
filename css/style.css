@@ -1,7 +1,19 @@
 /* Added utilities */
 
+.hide {
+  display: none;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
 .text-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.z-50 {
+  z-index: 50;
 }
