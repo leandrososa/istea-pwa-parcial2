@@ -24,16 +24,19 @@
     ></script>
     <script defer src="index.js"></script>
   </head>
-  <body class="dark">
+  <body class="">
     <!-- nav -->
-    <nav class="responsive top primary-container">
-      <button data-ui="#drawer" class="s m circle transparent">
-        <i>menu</i>
-      </button>
-      <h5 class="max">Taskie</h5>
-    </nav>
-    <!-- desktop nav -->
-    <nav class="l left">pepe</nav>
+    <header class="responsive fixed primary-container">
+      <nav>
+        <button data-ui="#drawer" class="s m circle transparent">
+          <i>menu</i>
+        </button>
+        <h5 class="max left-padding">Taskie</h5>
+        <button data-ui="#config-dialog" class="l circle transparent">
+          <i>settings</i>
+        </button>
+      </nav>
+    </header>
     <!-- navigation drawer -->
     <dialog class="left" id="drawer">
       <header class="fixed">
@@ -44,7 +47,7 @@
           <h5 class="max">Taskie</h5>
         </nav>
       </header>
-      <a data-ui="#add-dialog" class="row round">
+      <a onclick="ui('#drawer')" data-ui="#add-dialog" class="row round">
         <i>add</i>
         <span>Agregar tarea</span>
         <div class="max"></div>
@@ -55,27 +58,28 @@
         <div class="max"></div>
       </a>
       <div class="small-divider"></div>
-      <a data-ui="#config-dialog" class="row round">
+      <a onclick="ui('#drawer')" data-ui="#config-dialog" class="row round">
         <i>settings</i>
         <span>Configuraciones</span>
       </a>
     </dialog>
     <!-- main -->
-    <main
-      id="content"
-      class="responsive middle-align center-align"
-      style="padding: 96px 16px 16px 16px"
-    >
-      <progress class="circle">...</progress>
+    <main id="content" class="padding">
+      <div class="large-padding center-align">
+        <progress class="circle">...</progress>
+      </div>
     </main>
     <!-- add dialog -->
-    <dialog id="add-dialog" class="max">
-      <header class="fixed">
+    <dialog id="add-dialog" class="max no-padding">
+      <header class="fixed primary-container">
         <nav>
+          <button data-ui="#add-dialog" class="transparent circle large">
+            <i>arrow_back</i>
+          </button>
           <h5 class="max">Agregar tarea</h5>
         </nav>
       </header>
-      <form id="form" method="post">
+      <form id="form" method="post" class="padding">
         <div class="field label border">
           <input
             id="task-title"
@@ -113,22 +117,55 @@
         </footer>
       </form>
     </dialog>
-    <!-- config dialog -->
-    <dialog id="config-dialog" class="max">
-      <header class="fixed">
+    <!-- edit dialog -->
+    <dialog id="edit-dialog" class="max no-padding">
+      <header class="fixed primary-container">
         <nav>
-          <h5 class="max">Configuración</h5>
-          <button data-ui="#config-dialog" class="transparent circle large">
-            <i>close</i>
+          <button data-ui="#edit-dialog" class="transparent circle large">
+            <i>arrow_back</i>
           </button>
+          <h5 class="max">Editar tarea</h5>
         </nav>
       </header>
-      <form id="form" method="post">
+      <form id="form-edit" method="post" class="padding">
+        <h5 id="task-edit-title" class="bottom-padding"></h5>
+        <b>Descripci&oacute;n</b>
+        <p class="bottom-padding medium-line" id="task-edit-desc"></p>
+        <b>Fecha de creación</b>
+        <p class="bottom-padding" id="task-edit-create-date"></p>
+        <b>Fecha de conclusión</b>
+        <p class="bottom-padding" id="task-edit-conclusion-date"></p>
         <div class="field label suffix border">
-          <select name="idioma" id="voice-language">
-            <!-- <option value="pendiente">Pendiente</option>
-            <option value="completada">Completada</option> -->
+          <select name="estado" id="task-edit-status">
+            <option value="pendiente">Pendiente</option>
+            <option value="completada">Completada</option>
           </select>
+          <label>Estado de la tarea</label>
+          <i>arrow_drop_down</i>
+        </div>
+        <footer class="fixed">
+          <nav class="right-align">
+            <button type="button" data-ui="#edit-dialog" class="border">
+              Cancelar
+            </button>
+            <button data-ui="#edit-dialog">Confirmar</button>
+          </nav>
+        </footer>
+      </form>
+    </dialog>
+    <!-- config dialog -->
+    <dialog id="config-dialog" class="max no-padding">
+      <header class="fixed primary-container">
+        <nav>
+          <button data-ui="#config-dialog" class="transparent circle large">
+            <i>arrow_back</i>
+          </button>
+          <h5 class="max">Configuración</h5>
+        </nav>
+      </header>
+      <form id="form" method="post" class="padding">
+        <div class="field label suffix border">
+          <select name="idioma" id="voice-language"></select>
           <label>Seleccionar idioma y voz</label>
           <i>arrow_drop_down</i>
         </div>
@@ -138,7 +175,7 @@
             <input
               id="voice-rate"
               type="range"
-              min="0.5"
+              min="-1"
               max="2"
               value="1"
               step="0.1"
@@ -148,6 +185,15 @@
           </label>
           <i>speed</i>
         </nav>
+        <nav>
+          <div class="max">
+            <div>Modo oscuro</div>
+          </div>
+          <label class="switch icon">
+            <input id="dark-mode" type="checkbox" />
+            <span><i>dark_mode</i></span>
+          </label>
+        </nav>
       </form>
     </dialog>
     <!-- add fab -->
@@ -155,7 +201,7 @@
       id="add-fab"
       data-ui="#add-dialog"
       disabled
-      class="extend circle margin fixed bottom right"
+      class="extend circle margin fixed bottom right z-50"
     >
       <i>add</i>
       <span>Agregar tarea</span>
@@ -163,7 +209,10 @@
     <!-- edit snackbar -->
     <div class="snackbar primary" id="edit-snackbar">
       <i>info</i>
-      <span>Puede editar cada tarea desde el menu de opción de cada item.</span>
+      <span
+        >Puede editar cada tarea desde el <i class="tiny">more_vert</i>
+        <b>men&uacute; de opci&oacute;n</b> de cada item.</span
+      >
     </div>
   </body>
 </html>
